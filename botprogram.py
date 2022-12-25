@@ -11,7 +11,7 @@ client = discord.Client(intents=intents)
 async def on_ready():
     print(F"{client.user} has logged in")
 #Allows the bot to respond to a specific message
-badwords = ["213", "https://"]
+badwords = ["213"]
 Links = ["https://", "http://"]
 @client.event
 async def on_message(message):
@@ -22,10 +22,12 @@ async def on_message(message):
         for Bwords in badwords:
             if "G" not in str(message.author.roles) and Bwords in str(message.content.lower()):
                 await message.delete()
+                return
+#Deletes links sent from users without admin roles
         for links in Links:
-#Deletes links sent from users (INCLUDING USERS WITH ADMIN ROLES)
-            if message.content in Links:
+            if "G" not in str(message.author.roles) and links in str(message.content.lower()):
                 await message.delete()
-                await message.channel.send(f"{message.author.mention} Don't send links!")
+                await message.channel.send(f"{message.author.mention} No links!")
+                return
 #Allows the bot to function
 client.run(token)
