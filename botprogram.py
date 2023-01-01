@@ -2,9 +2,11 @@ import discord
 import requests
 import json
 from Private.config import token
+from discord.ext import commands
 # client instance allows interaction with discord API
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 # discord.py revolves around the concept of events. 
 # https://discordpy.readthedocs.io/en/stable/api.html#discord-api-events 
 
@@ -39,9 +41,14 @@ async def on_message(message):
         for links in Links:
             if "G" not in str(message.author.roles) and links in str(message.content):
                 await message.delete()
-                await message.channel.send(f"{message.author.mention} No links!")
+                await message.channel.send(f"{message.author.mention} You cannot send links because you do not have permssions.")
                 return
         if message.content == ("!stoic"):
             await message.channel.send(rand_quote())
+        if message.content.startswith('!kick') and message.author.guild_permissions.kick_members:
+            user_mention = message.content.split(" ")[1]
+            user = message.guild.get_member(int(user_mention.strip("<@!>")))
+            message.channel.send(f"{user} has been kicked")
+            await user.kick()
 #Allows the bot to function
 client.run(token)
