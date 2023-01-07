@@ -49,6 +49,13 @@ async def kick(ctx, user: discord.Member):
 @bot.command()
 async def stoic(message):
     await message.channel.send(rand_quote())
+#Allow bot to get the avatar of a user
+@bot.command()
+async def avatar(ctx, member: discord.Member = None):
+  if member == None:
+    member = ctx.author
+  embed = discord.Embed(title = member).set_image(url = member.avatar.url)
+  await ctx.send(embed = embed)
 #Events for the bot to respond to
 @bot.event
 async def on_message(message):
