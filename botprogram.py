@@ -37,8 +37,10 @@ async def on_member_join(member):
 @bot.command()
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, num_messages: int=10):
+    await ctx.message.delete()
     await ctx.channel.purge(limit=num_messages)
-    await ctx.send(f"{num_messages} messages were deleted")
+    await ctx.send(f"{num_messages} messages were deleted by {ctx.author.mention}")
+    print(f"{ctx.author} deleted {num_messages} message(s) from the \"{ctx.channel}\" channel")
 #allows memebers with kick permissions to kick other members using a slash command
 @bot.command()
 @commands.has_permissions(kick_members=True)
@@ -75,6 +77,6 @@ async def on_message(message):
                 await message.delete()
                 await message.channel.send(f"{message.author.mention} You cannot send links because you do not have permssions.")
                 return
-
+            
 #Allows the bot to function
 bot.run(token)
