@@ -1,5 +1,1 @@
-First python endeavor
-The steps that I had to take to even write in this file were foreign to me. 
-Install git/git bash, create github repository, make git user name and email, create an SSH key which came from git/bash and was put into github.
-Then I had to install pip and install discord using pip.
-Still learning.
+The main purpose of this project was to create a bot that could be implemented into personal discord servers while being able to develop practical skills for programming. With this project, I learned about API calling, JSON, and creating functions that carry out specific actions. Though it may be a very basic beginner project, I hope to create more projects that will solve problems and inconveniences.
